@@ -1,0 +1,37 @@
+// Priors and rules file
+// *********************
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1	NCURR_KLDR	unif	10	10000	output	bounded
+1	NCURR_IOWA	unif	10	10000	output	bounded
+1	NCURR_TERG	unif	10	100000	output	bounded
+1	CATANCEST	unif	10	100000	output	bounded
+1	NANCEST		unif	10	100000	output	bounded
+1	TMIGEND	unif	10	50000	output	bounded
+1	TDIV_CAT	unif	10	50000	output	bounded
+1	TINT	unif	10	950000	output	bounded
+0  N1M1        logunif  1e-5 20       output	bounded
+0  N2M2        logunif  1e-5 20       output	bounded
+[RULES]
+TMIGEND<TDIV_CAT
+[COMPLEX PARAMETERS]
+1	TDIV_SIS = TDIV_CAT + TINT	output
+0	RES1 = NANCEST/NCURR_IOWA	output 
+0	RATIO_CATANCES_KLDRCURR = CATANCEST/NCURR_KLDR	output
+0	RTEA1 = log(RATIO_CATANCES_KLDRCURR)	output
+0	KLDRRATE = RTEA1/TDIV_CAT	output 
+0	RATIO_CATANCES_IOWACURR = CATANCEST/NCURR_IOWA	output
+0	RTEA2 = log(RATIO_CATANCES_IOWACURR)	output
+0	IOWARATE = RTEA2/TDIV_CAT	output
+0	RATIO_NANCES_TERGCURR = NANCEST/NCURR_TERG	output
+0	RTEA3 = log(RATIO_NANCES_TERGCURR)	output
+0	TERGRATE = RTEA3/TDIV_SIS	output
+0	RATIO_NANCES_CATANCES = NANCEST/CATANCEST	output
+0	RTEA4 = log(RATIO_NANCES_CATANCES)	output
+0	CATRATE = RTEA4/TINT	output
+0  2NM1 = 2*N1M1     output
+0  2NM2 = 2*N2M2     output
+0  MIG12    = 2NM1/NCURR_IOWA	output
+0  MIG21    = 2NM2/NCURR_TERG	output
+
