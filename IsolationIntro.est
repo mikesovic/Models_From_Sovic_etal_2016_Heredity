@@ -1,0 +1,32 @@
+// Priors and rules file
+// *********************
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1	NCURR_KLDR	unif	10	10000	output	bounded
+1	NCURR_IOWA	unif	10	10000	output	bounded
+1	NCURR_TERG	unif	10	100000	output	bounded
+1	CATANCEST	unif	10	100000	output	bounded
+1	TADMIX	unif	10	50000	output	bounded
+0	ADMIX_TERG	unif	0	1	output	bounded
+1	NANCEST		unif	10	100000	output	bounded
+1	TDIV_CAT	unif	10	50000	output	bounded
+1	TINT	unif	10	950000	output	bounded
+[RULES]
+TDIV_CAT > TADMIX
+[COMPLEX PARAMETERS]
+1	TDIV_SIS = TDIV_CAT + TINT	output
+0	RES1 = NANCEST/NCURR_IOWA	output 
+0	RATIO_CATANCES_KLDRCURR = CATANCEST/NCURR_KLDR	output
+0	RTEA1 = log(RATIO_CATANCES_KLDRCURR)	output
+0	KLDRRATE = RTEA1/TDIV_CAT	output 
+0	RATIO_CATANCES_IOWACURR = CATANCEST/NCURR_IOWA	output
+0	RTEA2 = log(RATIO_CATANCES_IOWACURR)	output
+0	IOWARATE = RTEA2/TDIV_CAT	output
+0	RATIO_NANCES_TERGCURR = NANCEST/NCURR_TERG	output
+0	RTEA3 = log(RATIO_NANCES_TERGCURR)	output
+0	TERGRATE = RTEA3/TDIV_SIS	output
+0	RATIO_NANCES_CATANCES = NANCEST/CATANCEST	output
+0	RTEA4 = log(RATIO_NANCES_CATANCES)	output
+0	CATRATE = RTEA4/TINT	output
+
